@@ -35,16 +35,82 @@ i.e. [5,14,23]
 14   23
 */
 
-var minHeap {
-  var storeHeap = [];
-  function insert(n) {
-    storeHeap.push(n);
-    var idxInsertedElem = storeHeap.length/2;
-    if (arr[idxInsertedElem]) {
 
+// https://coderpad.io/TTW4PNCA
+function MinHeap() {
+  // setup store to have first index at 0 to be null, to account for integer division
+  this.store = [null];
+  this.parent = function (idx) {
+    // return parent, which is the index i - 1 /2
+    return this.store[(idx)/2];
+  };
+  this.leftChild = function (idx) {
+    return this.store[2*idx];
+  };
+  this.rightChild = function (idx) {
+    return this.store[(2*idx) + 1];
+  };
+  this.insert = function (key) {
+    this.store.push(key);
+    this._bubbleUp(this.store.length-1, key);
+  };
+  this.extractMinimum = function () {
+    if (this.store) {
+      var root = this.store[1];
+      // Replace last elem in the heap as root and remove last elem in heap
+      var lastElemValue = this.store[this.store.length-1];
+      this.store[1] = lastElemValue;
+      this.store.pop();
+
+      this._bubbleDown(1, lastElemValue);
+
+      return root;
     }
-  },
-  function extractMinimum() {
-
+  };
+  this._bubbleUp = function (idxInsertedElem, key) {
+    var parent = this.parent(idxInsertedElem);
+    if (parent > key) {
+      // swap
+      var temp = parent;
+      this.store[idxInsertedElem/2] = key;
+      this.store[idxInsertedElem] = parent;
+      // continue to swap if we reached this case
+      this._bubbleUp(idxInsertedElem/2, key);
+    }
+  };
+  this._bubbleDown = function (idxInsertedElem, key) {
+    // Swap last elem in the heap with the root, and recurse
+    // until we maintain the min heap property
+    var leftChild = this.leftChild(idxInsertedElem);
+    var rightChild = this.rightChild(idxInsertedElem);
+    if (leftChild < key) {
+      // swap
+      var temp = leftChild;
+      this.store[2*idxInsertedElem] = key;
+      this.store[idxInsertedElem] = temp;
+      this._bubbleDown(2*idxInsertedElem);
+    } else if (rightChild < key) {
+      var temp = rightChild;
+      this.store[2*idxInsertedElem + 1] = key;
+      this.store[idxInsertedElem] = temp;
+      this._bubbleDown(2*idxInsertedElem + 1);
+    }
   }
 }
+
+var heap = new MinHeap();
+heap.insert(4);
+heap.insert(50);
+heap.insert(7);
+heap.insert(2);
+console.log(heap.store);
+
+// now extract min
+heap.extractMinimum();
+console.log(heap.store);
+
+heap.insert(5);
+console.log(heap.store);
+
+heap.extractMinimum();
+console.log(heap.store);
