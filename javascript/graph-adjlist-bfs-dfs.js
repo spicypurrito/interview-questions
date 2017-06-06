@@ -52,6 +52,7 @@ Graph.prototype.breadthFirstSearch = function (root) {
     console.log(node.value);
     node.adjacencyList.forEach(function(node) {
       if (!node.visited) {
+        node.visited = true;
         queue.push(node);
       }
     }.bind(this));
