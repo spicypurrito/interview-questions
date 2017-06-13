@@ -1,22 +1,32 @@
-// Binary search
-function binarySearch(arr, k) {
-  return binSearch(arr, 0, arr.length, k);
+// Run recursive BFS on binary search tree
+
+// implement binary search on findValue, which should run in O(nlogn) time
+// [5,7,10,15]
+function findValue(arr, k) {
+  return binarySearch(arr, 0, arr.length, k);
 }
 
-function binSearch(arr, startIdx, endIdx, k) {
-  var mid = Math.floor((startIdx+endIdx)/2);
-  if (k === arr[mid]) {
+function binarySearch(arr, startIdx, endIdx, k) {
+  var midIdx = Math.floor((startIdx + endIdx) / 2);
+  var midElem = arr[midIdx];
+
+  if (startIdx > endIdx || endIdx < startIdx) return false;
+
+  if (k === midElem) {
     return true;
   }
-  if (k < arr[mid]) {
-    return binSearch(arr, startIdx, mid-1);
+
+  if (k < midElem) {
+    return binarySearch(arr, startIdx, midIdx-1, k);
   }
-  if (k > arr[mid]) {
-    return binSearch(arr, mid+1, endIdx);
+
+  if (k > midElem) {
+    return binarySearch(arr, midIdx + 1, endIdx, k);
   }
+
   return false;
 }
 
-console.log('binarySearch');
-console.log(binarySearch([1,2,5,7], 5));
-console.log(binarySearch([1,2,5,7], 4));
+console.log(findValue([5,7,10,15], 5));
+console.log(findValue([5,7,10,15], 10));
+console.log(findValue([5,7,10,15], 25));
