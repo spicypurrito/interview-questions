@@ -18,3 +18,18 @@ console.log(determinePrime(5));
 console.log(determinePrime(25));
 console.log(determinePrime(40));
 console.log(determinePrime(13));
+
+// Another simpler implementation. Mod tells you if there is a leftover ,so if it's 0 then you know that k is divisuble by i
+function isPrime(k) {
+  for (var i = 2; i < k; i++) {
+    if (k % i === 0) {
+      return false
+    }
+  }
+  return true;
+}
+
+console.log(isPrime(7));
+console.log(isPrime(6));
+console.log(isPrime(15));
+console.log(isPrime(23));
