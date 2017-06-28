@@ -35,3 +35,31 @@ function merge (left, right, result) {
 
 console.log(mergeSort([1,2,3]));
 console.log(mergeSort([3,1,2,5,10,8]));
+
+mergeSort(arr) {
+  // get mid
+  // slice left array vs right array
+  // left = arr.slice(0, midIdx);
+  // right = arr.slice(midIdx, arr.length)
+  // set result = []
+  // sortedArr = merge (mergesort(leftArr), mergesort(rightArr), result);
+  return sortedArr
+}
+
+merge(leftArr, rightArr, result) {
+  while (leftArr.length && rightArr.length) {
+    if (leftArr[0] <= rightArr[0]) {
+       result.push(leftArr.shift());
+    } else if (rightArr[0] < leftArr[0]) {
+      result.push(rightArr.shift());
+    }
+  }
+
+  while (leftArr.length) {
+    result.push(leftArr.shift());
+  }
+  while (rightArr.length) {
+    result.push(rightArr.shift());
+  }
+  return result;
+}

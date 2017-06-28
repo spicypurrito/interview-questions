@@ -48,7 +48,7 @@ BST.prototype.BFS = function (node, inputString) {
   var queue = [];
   queue.push(node);
   while (queue.length > 0) {
-    var node = queue.pop();
+    var node = queue.shift(); // get from the front of the array; FIFO
     if (node.value === inputString) return true;
     if (node.left) {
       queue.push(node.left, inputString);
